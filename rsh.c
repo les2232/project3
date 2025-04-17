@@ -30,7 +30,7 @@ int main() {
     int status;
 
     while (1) {
-	    fprintf(stderr, "rsh>");
+        fprintf(stderr, "rsh>");
 
         // Get a line of input
         if (fgets(line, sizeof(line), stdin) == NULL)
@@ -52,7 +52,6 @@ int main() {
         }
         argv[argc] = NULL;
 
-        // Skip if no command
         if (argv[0] == NULL)
             continue;
 
@@ -62,22 +61,16 @@ int main() {
             continue;
         }
 
-        // Built-in: exit
+        // Built-in commands
         if (strcmp(argv[0], "exit") == 0) {
             return 0;
-        }
-
-        // Built-in: help
-        else if (strcmp(argv[0], "help") == 0) {
+        } else if (strcmp(argv[0], "help") == 0) {
             printf("The allowed commands are:\n");
             for (int i = 0; i < N; i++) {
                 printf("%d: %s\n", i + 1, allowed[i]);
             }
             continue;
-        }
-
-        // Built-in: cd
-        else if (strcmp(argv[0], "cd") == 0) {
+        } else if (strcmp(argv[0], "cd") == 0) {
             if (argc > 2) {
                 printf("-rsh: cd: too many arguments\n");
             } else if (argc == 2 && chdir(argv[1]) != 0) {
